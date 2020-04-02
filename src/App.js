@@ -25,6 +25,7 @@ class App extends Component {
     if (!input.word) {
       errors.word = 'Введіть слово для поділу на склади'
       this.setState({
+        wordWithSyllables: "",
         inputError: true
       })
     }
@@ -34,9 +35,10 @@ class App extends Component {
         "п", "р", "с", "т", "ф", "х", "ц", "ч", "ш", "щ", "ь"]
       
       for (let char of input.word) {
-        if (!ukrAlphabet.includes(char)) {
-          errors.word = 'Цей сайт підтримує поділ тільки українських слів. Введіть українські літери!'
+        if (!ukrAlphabet.includes(char.toLowerCase())) {
+          errors.word = 'Цей сайт підтримує поділ тільки українських слів. Введіть тільки українські літери (без цифр і знаків)!'
           this.setState({
+            wordWithSyllables: "",
             inputError: true
           })
           break
@@ -92,7 +94,7 @@ class App extends Component {
                 >
                   Поділити на склади!
                 </button>
-                <ErrorMessage name="word" component="p" style={{ fontSize: '1em', padding: '0.5em'}} />
+                <ErrorMessage name="word" component="div" style={{ fontSize: '1em', padding: '0.5em'}} />
               </Form>
             )}
           </Formik>
